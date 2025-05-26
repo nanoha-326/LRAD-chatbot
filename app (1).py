@@ -112,13 +112,13 @@ st.markdown("""
     <style>
     .fixed-input {
         position: fixed;
-        top: 30px;
+        bottom: 0;
         left: 0;
         width: 100%;
         background-color: #f9f9f9;
         padding: 10px;
         z-index: 999;
-        border-bottom: 1px solid #ccc;
+        border-top: 1px solid #ccc;
     }
     .chat-message {
         background-color: #e1f5fe;
