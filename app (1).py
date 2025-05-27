@@ -111,26 +111,40 @@ st.markdown(f"""
 st.markdown("""
     <style>
     .fixed-input {
-        position: fixed;
+        position: sticky;
         bottom: 0;
-        left: 0;
-        width: 100%;
         background-color: #f9f9f9;
         padding: 10px;
         z-index: 999;
         border-top: 1px solid #ccc;
+    }
+    .chat-container {
+        max-height: 70vh;
+        overflow-y: auto;
+        margin-bottom: 80px;
     }
     .chat-message {
         background-color: #e1f5fe;
         padding: 10px;
         border-radius: 10px;
         margin-bottom: 10px;
+        font-size: 16px;
     }
     .chat-message.assistant {
         background-color: #fff9c4;
     }
     </style>
 """, unsafe_allow_html=True)
+
+st.markdown("<div class='chat-container'>", unsafe_allow_html=True)
+for user_msg, bot_msg in st.session_state.chat_log:
+    with st.chat_message("user"):
+        st.markdown(f"<div class='chat-message'>{user_msg}</div>", unsafe_allow_html=True)
+    with st.chat_message("assistant"):
+        st.markdown(f"<div class='chat-message assistant'>{bot_msg}</div>", unsafe_allow_html=True)
+st.markdown("</div>", unsafe_allow_html=True)
+
+
 
 # ログ保存ボタン
 if st.button("チャットログを保存"):
@@ -171,3 +185,8 @@ for user_msg, bot_msg in st.session_state.chat_log:
         st.markdown(f"<div class='chat-message'>{user_msg}</div>", unsafe_allow_html=True)
     with st.chat_message("assistant"):
         st.markdown(f"<div class='chat-message assistant'>{bot_msg}</div>", unsafe_allow_html=True)
+
+#チャットログ
+st.session_state.chat_log.append((user_input, final_response))
+st.session_state.chat_log.append((user_input, error_message))
+
